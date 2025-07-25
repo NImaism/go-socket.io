@@ -61,7 +61,6 @@ func (c *client) NextReader() (session.FrameType, io.ReadCloser, error) {
 
 		switch pt {
 		case packet.PING:
-			logger.Info("Fired when a ping packet is received from the server.")
 			w, err := c.conn.NextWriter(frame.String, packet.PONG)
 			if err != nil {
 				logger.Error("get next writer with string frame and packet pong:", err)
