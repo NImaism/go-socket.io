@@ -9,6 +9,7 @@ import (
 	"github.com/NImaism/go-socket.io/engineio"
 	"github.com/NImaism/go-socket.io/engineio/transport"
 	"github.com/NImaism/go-socket.io/engineio/transport/polling"
+	"github.com/NImaism/go-socket.io/engineio/transport/websocket"
 	"github.com/NImaism/go-socket.io/logger"
 	"github.com/NImaism/go-socket.io/parser"
 )
@@ -65,7 +66,11 @@ func fmtNS(ns string) string {
 
 func (c *Client) Connect() error {
 	dialer := engineio.Dialer{
-		Transports: []transport.Transport{polling.Default},
+		Transports: []transport.Transport{polling.Default, websocket.Default},
+	}
+
+	if len(c.opts.Transports) > 0 {
+		dialer.Transports = c.opts.Transports
 	}
 
 	enginioCon, err := dialer.Dial(c.url, nil)

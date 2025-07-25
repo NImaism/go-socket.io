@@ -96,7 +96,7 @@ func (d *Dialer) Dial(urlStr string, requestHeader http.Header) (Conn, error) {
 			close:     make(chan struct{}),
 		}
 
-		go ret.serve()
+		// go ret.serve()
 
 		return ret, nil
 	}
